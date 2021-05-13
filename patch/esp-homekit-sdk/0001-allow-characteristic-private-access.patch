@@ -1,0 +1,82 @@
+diff --git a/components/homekit/esp_hap_core/include/hap.h b/components/homekit/esp_hap_core/include/hap.h
+index fdd80f5..b7b5e57 100644
+--- a/components/homekit/esp_hap_core/include/hap.h
++++ b/components/homekit/esp_hap_core/include/hap.h
+@@ -1565,6 +1565,28 @@ void hap_http_debug_disable();
+  * @return NULL on failure.
+  */
+ char *esp_hap_get_setup_payload(char *setup_code, char *setup_id, bool wac_support, hap_cid_t cid);
++
++/**
++ * @brief Set characteristic private data
++ *
++ * @param[in] hc HAP characteristic Object Handle
++ * @param[in] priv Private data for the service
++ */
++void hap_char_set_priv(hap_char_t *hc, void *priv);
++
++/**
++ * @brief Get characteristic private
++ *
++ * @param[in] hs HAP characteristic Object Handle
++ *
++ * @return Pointer to the private data (can be NULL)
++ */
++void *hap_char_get_priv(hap_char_t *hc);
++
++#if CONFIG_HAP_HTTP_SERVER_PORT == 80
++	#error "Homekit server on port 80"
++#endif
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/components/homekit/esp_hap_core/src/esp_hap_char.c b/components/homekit/esp_hap_core/src/esp_hap_char.c
+index 9b712e3..9c43ac9 100644
+--- a/components/homekit/esp_hap_core/src/esp_hap_char.c
++++ b/components/homekit/esp_hap_core/src/esp_hap_char.c
+@@ -599,3 +599,32 @@ void hap_char_add_valid_vals_range(hap_char_t *hc, uint8_t start_val, uint8_t en
+         _hc->valid_vals_range[1] = end_val;
+     }
+ }
++
++/**
++ * @brief Set characteristic private data
++ *
++ * @param[in] hc HAP characteristic Object Handle
++ * @param[in] priv Private data for the service
++ */
++void hap_char_set_priv(hap_char_t *hc, void *priv)
++{
++    if (hc) {
++        ((__hap_char_t *)hc)->priv = priv;
++    }
++}
++
++/**
++ * @brief Get characteristic private
++ *
++ * @param[in] hs HAP characteristic Object Handle
++ *
++ * @return Pointer to the private data (can be NULL)
++ */
++void *hap_char_get_priv(hap_char_t *hc)
++{
++    if (hc) {
++        return ((__hap_char_t *)hc)->priv;
++    } else {
++        return NULL;
++    }
++}
+diff --git a/components/homekit/esp_hap_core/src/priv_includes/esp_hap_char.h b/components/homekit/esp_hap_core/src/priv_includes/esp_hap_char.h
+index d24fcf8..0ef3764 100644
+--- a/components/homekit/esp_hap_core/src/priv_includes/esp_hap_char.h
++++ b/components/homekit/esp_hap_core/src/priv_includes/esp_hap_char.h
+@@ -81,6 +81,7 @@ typedef struct  {
+     uint8_t *valid_vals;
+     size_t valid_vals_cnt;
+     bool update_called;
++    void * priv;
+ } __hap_char_t;
+ 
+ void hap_char_manage_notification(hap_char_t *hc, int index, bool ev);

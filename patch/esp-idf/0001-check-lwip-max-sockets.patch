@@ -1,0 +1,15 @@
+diff --git a/components/esp_http_server/include/esp_http_server.h b/components/esp_http_server/include/esp_http_server.h
+index c89b78c53..9287e46f9 100644
+--- a/components/esp_http_server/include/esp_http_server.h
++++ b/components/esp_http_server/include/esp_http_server.h
+@@ -27,6 +27,10 @@
+ extern "C" {
+ #endif
+ 
++#if CONFIG_LWIP_MAX_SOCKETS < 16
++	#error "Not enough socket"
++#endif
++
+ /*
+ note: esp_https_server.h includes a customized copy of this
+ initializer that should be kept in sync
