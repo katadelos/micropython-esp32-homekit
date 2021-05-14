@@ -7,16 +7,16 @@ class Outlet(Accessory):
 	def __init__(self, **kwargs):
 		""" Create outlet accessory. Parameters : name(string), on(bool), outletInUse(bool) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_OUTLET, **kwargs)
-		self.server = Server(name=kwargs.get("name","Outlet"), serverUuid=Server.UUID_OUTLET)
+		self.service = Service(name=kwargs.get("name","Outlet"), serviceUuid=Service.UUID_OUTLET)
 
 		self.on = charactBoolCreate (Charact.UUID_ON, Charact.PERM_RWE, kwargs.get("on",False))
-		self.server.addCharact(self.on)
+		self.service.addCharact(self.on)
 		
 		self.outletInUse = charactBoolCreate (Charact.UUID_OUTLET_IN_USE, Charact.PERM_RE, kwargs.get("outletInUse",False))
-		self.server.addCharact(self.outletInUse)
+		self.service.addCharact(self.outletInUse)
 
 		self.on.setWriteCallback(self.writeOn)
-		self.addServer(self.server)
+		self.addService(self.service)
 
 	def writeOn(self, value):
 		if value:

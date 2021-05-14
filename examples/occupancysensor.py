@@ -8,12 +8,12 @@ class OccupancySensor(Accessory):
 		""" Create occupancy accessory. Parameters : name(string), occupancyDetected(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Occupancy sensor"), serverUuid=Server.UUID_OCCUPANCY_SENSOR)
+		self.service = Service(name=kwargs.get("name","Occupancy sensor"), serviceUuid=Service.UUID_OCCUPANCY_SENSOR)
 		self.occupancyDetected = charactUint8Create (Charact.UUID_OCCUPANCY_DETECTED, Charact.PERM_RE, kwargs.get("occupancyDetected",0))
 		self.occupancyDetected.setConstraint(0, 1, 1)
-		self.server.addCharact(self.occupancyDetected)
+		self.service.addCharact(self.occupancyDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setOccupancyDetected(self, value):
 		""" Set the occupancy detected """

@@ -8,14 +8,14 @@ class LightSensor(Accessory):
 		""" Create light sensor accessory. Parameters : name(string), lightLevel(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Light sensor"), serverUuid=Server.UUID_LIGHT_SENSOR)
+		self.service = Service(name=kwargs.get("name","Light sensor"), serviceUuid=Service.UUID_LIGHT_SENSOR)
 
 		self.lightLevel = charactFloatCreate (Charact.UUID_CURRENT_AMBIENT_LIGHT_LEVEL, Charact.PERM_RE, kwargs.get("lightLevel",0.))
 		self.lightLevel.setConstraint(0.0001, 100000.0, 0.0)
 		self.lightLevel.setUnit(Charact.UNIT_LUX)
-		self.server.addCharact(self.lightLevel)
+		self.service.addCharact(self.lightLevel)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setLightLevel(self, value):
 		""" Set the light level """

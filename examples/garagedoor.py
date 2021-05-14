@@ -7,21 +7,21 @@ class GarageDoorOpener(Accessory):
 	def __init__(self, **kwargs):
 		""" Create door opener accessory. Parameters : name(string), currDoorState(int), targDoorState(int), obstrDetect(bool) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_GARAGE_DOOR_OPENER, **kwargs)
-		self.server = Server(name=kwargs.get("name","Garage door"), serverUuid=Server.UUID_GARAGE_DOOR_OPENER)
+		self.service = Service(name=kwargs.get("name","Garage door"), serviceUuid=Service.UUID_GARAGE_DOOR_OPENER)
 		
 		self.currDoorState = charactUint8Create (Charact.UUID_CURRENT_DOOR_STATE, Charact.PERM_RE, kwargs.get("currDoorState",0))
 		self.currDoorState .setConstraint(0, 4, 1)
-		self.server.addCharact(self.currDoorState)
+		self.service.addCharact(self.currDoorState)
 		
 		self.targDoorState = charactUint8Create (Charact.UUID_TARGET_DOOR_STATE, Charact.PERM_RWE, kwargs.get("targDoorState",0))
 		self.targDoorState.setConstraint(0, 1, 1)
-		self.server.addCharact(self.targDoorState)
+		self.service.addCharact(self.targDoorState)
 		
 		self.obstrDetect = charactBoolCreate (Charact.UUID_OBSTRUCTION_DETECTED, Charact.PERM_RE, kwargs.get("obstrDetect",False))
-		self.server.addCharact(self.obstrDetect)
+		self.service.addCharact(self.obstrDetect)
 
 		self.targDoorState.setWriteCallback(self.writeTargDoorState)
-		self.addServer(self.server)
+		self.addService(self.service)
 
 	def writeTargDoorState(self, value):
 		import time

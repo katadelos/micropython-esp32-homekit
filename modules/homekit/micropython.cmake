@@ -4,7 +4,7 @@ target_sources(usermod_homekit_ INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/modhomekit.c
     ${CMAKE_CURRENT_LIST_DIR}/modhomekit_accessory.c
     ${CMAKE_CURRENT_LIST_DIR}/modhomekit_charact.c
-    ${CMAKE_CURRENT_LIST_DIR}/modhomekit_server.c
+    ${CMAKE_CURRENT_LIST_DIR}/modhomekit_service.c
 )
 
 target_include_directories(usermod_homekit_ INTERFACE

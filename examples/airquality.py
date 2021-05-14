@@ -8,13 +8,13 @@ class AirQualitySensor(Accessory):
 		""" Create air quality accessory. Parameters : name(string), airQuality(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Air quality sensor"), serverUuid=Server.UUID_AIR_QUALITY_SENSOR)
+		self.service = Service(name=kwargs.get("name","Air quality sensor"), serviceUuid=Service.UUID_AIR_QUALITY_SENSOR)
 
 		self.airQuality = charactUint8Create (Charact.UUID_AIR_QUALITY, Charact.PERM_RE, kwargs.get("airQuality",0))
 		self.airQuality.setConstraint(0, 5, 1)
-		self.server.addCharact(self.airQuality)
+		self.service.addCharact(self.airQuality)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setAirQuality(self, value):
 		""" Set the air quality """

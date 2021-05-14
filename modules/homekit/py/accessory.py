@@ -1,6 +1,6 @@
 # Distributed under MIT License
 # Copyright (c) 2021 Remi BERTHOLET
-from homekit.server import *
+from homekit.service import *
 
 class Accessory:
 	""" Homekit accessory class """
@@ -47,9 +47,9 @@ class Accessory:
 		""" Destroy homekit accessory """
 		self.accessory.deinit()
 
-	def addServer(self, server):
+	def addService(self, service):
 		"""  Add the serve to the accessory object """
-		self.accessory.addServer(server.server)
+		self.accessory.addService(service.service)
 
 	def setIdentifyCallback(self, callback):
 		""" Set identify callback. In a real accessory, something like LED blink should be implemented got visual identification """

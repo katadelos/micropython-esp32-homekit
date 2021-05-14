@@ -7,18 +7,18 @@ class LockMecanism(Accessory):
 	def __init__(self, **kwargs):
 		""" Create lock mecanism accessory. Parameters : name(string), lockCurrState(int), lockTargState(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_LOCK, **kwargs)
-		self.server = Server(name=kwargs.get("name","Lock mecanism"), serverUuid=Server.UUID_LOCK_MECHANISM)
+		self.service = Service(name=kwargs.get("name","Lock mecanism"), serviceUuid=Service.UUID_LOCK_MECHANISM)
 
 		self.lockCurrState = charactUint8Create (Charact.UUID_LOCK_CURRENT_STATE, Charact.PERM_RE, kwargs.get("lockCurrState",0))
 		self.lockCurrState.setConstraint(0, 3, 1);
-		self.server.addCharact(self.lockCurrState)
+		self.service.addCharact(self.lockCurrState)
 
 		self.lockTargState = charactUint8Create (Charact.UUID_LOCK_TARGET_STATE, Charact.PERM_RWE, kwargs.get("lockTargState",0))
 		self.lockTargState.setConstraint(0, 1, 1)
-		self.server.addCharact(self.lockTargState)
+		self.service.addCharact(self.lockTargState)
 
 		self.lockTargState.setWriteCallback(self.writeLockTargState)
-		self.addServer(self.server)
+		self.addService(self.service)
 
 	def writeLockTargState(self, value):
 		import time

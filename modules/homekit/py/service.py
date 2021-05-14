@@ -1,8 +1,8 @@
 # Distributed under MIT License
 # Copyright (c) 2021 Remi BERTHOLET
 from homekit.charact   import *
-class Server:
-	""" Create homekit server """
+class Service:
+	""" Create homekit service """
 	UUID_ACCESSORY_INFORMATION        = "3E"
 	UUID_PROTOCOL_INFORMATION         = "A2"
 	UUID_FAN                          = "40"
@@ -42,19 +42,19 @@ class Server:
 	UUID_FAUCET                       = "D7"
 	UUID_TELEVISION                   = "D8"
 	UUID_INPUT_SOURCE                 = "D9"
-	def __init__(self, name, serverUuid):
-		""" Constructor homekit server """
+	def __init__(self, name, serviceUuid):
+		""" Constructor homekit service """
 		import homekit_
-		self.server = homekit_.Server(serverUuid)
+		self.service = homekit_.Service(serviceUuid)
 		self.name = Charact(Charact.UUID_NAME, Charact.PERM_READ, Charact.TYPE_STRING, name)
 		self.addCharact(self.name)
 
 	def __del__(self):
-		""" Destructor homekit server """
-		self.server.deinit()
+		""" Destructor homekit service """
+		self.service.deinit()
 
 	def addCharact(self, charact):
-		""" Add characteristic to this homekit server """
-		self.server.addCharact(charact.charact)
+		""" Add characteristic to this homekit service """
+		self.service.addCharact(charact.charact)
 
 

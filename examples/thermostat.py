@@ -11,50 +11,50 @@ class Thermostat(Accessory):
 	def __init__(self, **kwargs):
 		""" Create thermostat accessory. Parameters : name(string), currentState(int), targetState(int), temperature(float), targetTemperature(float), tempDispUnits(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_THERMOSTAT, **kwargs)
-		self.server = Server(name=kwargs.get("name","Thermostat"), serverUuid=Server.UUID_THERMOSTAT)
+		self.service = Service(name=kwargs.get("name","Thermostat"), serviceUuid=Service.UUID_THERMOSTAT)
 
 		self.currentState = charactUint8Create (Charact.UUID_CURRENT_HEATING_COOLING_STATE, Charact.PERM_RE, kwargs.get("currentState",0))
 		self.currentState.setConstraint(0, 2, 1)
-		self.server.addCharact(self.currentState)
+		self.service.addCharact(self.currentState)
 
 		self.targetState = charact = charactUint8Create (Charact.UUID_TARGET_HEATING_COOLING_STATE, Charact.PERM_RWE, kwargs.get("targetState",0))
 		self.targetState.setConstraint(0, 3, 1)
 		self.targetState.setWriteCallback(self.writeTargetState)
-		self.server.addCharact(self.targetState)
+		self.service.addCharact(self.targetState)
 
 		self.temperature = charactFloatCreate (Charact.UUID_CURRENT_TEMPERATURE, Charact.PERM_RE, kwargs.get("temperature",20.))
 		self.temperature .setConstraint(0.0, 100.0, 0.1)
 		self.temperature .setUnit(Charact.UNIT_CELSIUS)
-		self.server.addCharact(self.temperature)
+		self.service.addCharact(self.temperature)
 
 		self.targetTemperature = charactFloatCreate (Charact.UUID_TARGET_TEMPERATURE, Charact.PERM_RWE, kwargs.get("targetTemperature",10.))
 		self.targetTemperature.setConstraint(10.0, 38.0, 0.1)
 		self.targetTemperature.setUnit(Charact.UNIT_CELSIUS)
 		self.targetTemperature.setWriteCallback(self.writeTargetTemperature)
-		self.server.addCharact(self.targetTemperature)
+		self.service.addCharact(self.targetTemperature)
 
 		self.tempDispUnits = charactUint8Create (Charact.UUID_TEMPERATURE_DISPLAY_UNITS, Charact.PERM_RWE, kwargs.get("tempDispUnits",0))
 		self.tempDispUnits.setConstraint(0, 1, 1)
-		self.server.addCharact(self.tempDispUnits)
+		self.service.addCharact(self.tempDispUnits)
 
 		self.coolingThreshold = charactFloatCreate (Charact.UUID_COOLING_THRESHOLD_TEMPERATURE, Charact.PERM_RWE, kwargs.get("coolingThreshold",26.))
 		self.coolingThreshold.setConstraint(10.0, 38.0, 0.1)
 		self.coolingThreshold.setUnit(Charact.UNIT_CELSIUS)
 		self.coolingThreshold.setWriteCallback(self.writeCoolingThreshold)
-		self.server.addCharact(self.coolingThreshold)
+		self.service.addCharact(self.coolingThreshold)
 
 		self.heatingThreshold = charactFloatCreate (Charact.UUID_HEATING_THRESHOLD_TEMPERATURE, Charact.PERM_RWE, kwargs.get("heatingThreshold",18.))
 		self.heatingThreshold.setConstraint(10.0, 38.0, 0.1)
 		self.heatingThreshold.setUnit(Charact.UNIT_CELSIUS)
 		self.heatingThreshold.setWriteCallback(self.writeHeatingThreshold)
-		self.server.addCharact(self.heatingThreshold)
+		self.service.addCharact(self.heatingThreshold)
 		
 		self.currentHumidity = charactFloatCreate (Charact.UUID_CURRENT_RELATIVE_HUMIDITY, Charact.PERM_RE, kwargs.get("currHumidity",0.))
 		self.currentHumidity.setConstraint(0.0, 100.0, 1.0)
 		self.currentHumidity.setUnit(Charact.UNIT_PERCENTAGE)
-		self.server.addCharact(self.currentHumidity)
+		self.service.addCharact(self.currentHumidity)
 		
-		self.addServer(self.server)
+		self.addService(self.service)
 		self.previousState = None
 
 	def writeTargetState(self, value):

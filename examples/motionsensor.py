@@ -8,11 +8,11 @@ class MotionSensor(Accessory):
 		""" Create motion accessory. Parameters : name(string), motionDetected(bool) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Motion sensor"), serverUuid=Server.UUID_MOTION_SENSOR)
+		self.service = Service(name=kwargs.get("name","Motion sensor"), serviceUuid=Service.UUID_MOTION_SENSOR)
 		self.motionDetected = charactBoolCreate (Charact.UUID_MOTION_DETECTED, Charact.PERM_RE, kwargs.get("motionDetected",False))
-		self.server.addCharact(self.motionDetected)
+		self.service.addCharact(self.motionDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setMotionDetected(self, value):
 		""" Set the motion detected """

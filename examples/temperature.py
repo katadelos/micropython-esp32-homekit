@@ -8,14 +8,14 @@ class TemperatureSensor(Accessory):
 		""" Create temperature accessory. Parameters : name(string), temperature(float) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Temperature"), serverUuid=Server.UUID_TEMPERATURE_SENSOR)
+		self.service = Service(name=kwargs.get("name","Temperature"), serviceUuid=Service.UUID_TEMPERATURE_SENSOR)
 
 		self.temperature = charactFloatCreate (Charact.UUID_CURRENT_TEMPERATURE, Charact.PERM_RE, kwargs.get("temperature",20.))
 		self.temperature.setConstraint(0.0, 100.0, 0.1)
 		self.temperature.setUnit(Charact.UNIT_CELSIUS)
-		self.server.addCharact(self.temperature)
+		self.service.addCharact(self.temperature)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setTemperature(self, temp):
 		""" Set the temperature """

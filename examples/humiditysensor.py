@@ -8,14 +8,14 @@ class HumiditySensor(Accessory):
 		""" Create humidity sensor accessory. Parameters : name(string), humidityLevel(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Humidity sensor"), serverUuid=Server.UUID_HUMIDITY_SENSOR)
+		self.service = Service(name=kwargs.get("name","Humidity sensor"), serviceUuid=Service.UUID_HUMIDITY_SENSOR)
 
 		self.humidityLevel = charactFloatCreate (Charact.UUID_CURRENT_RELATIVE_HUMIDITY, Charact.PERM_RE, kwargs.get("humidityLevel",0.))
 		self.humidityLevel.setConstraint(0.0, 100.0, 1.0)
 		self.humidityLevel.setUnit(Charact.UNIT_PERCENTAGE)
-		self.server.addCharact(self.humidityLevel)
+		self.service.addCharact(self.humidityLevel)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setHumidityLevel(self, value):
 		""" Set the humidity level """

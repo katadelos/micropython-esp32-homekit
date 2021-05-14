@@ -8,13 +8,13 @@ class CarbonDioxideSensor(Accessory):
 		""" Create carbon dioxide accessory. Parameters : name(string), carbonDioxide(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Carbon dioxide sensor"), serverUuid=Server.UUID_CARBON_DIOXIDE_SENSOR)
+		self.service = Service(name=kwargs.get("name","Carbon dioxide sensor"), serviceUuid=Service.UUID_CARBON_DIOXIDE_SENSOR)
 
 		self.carbonDioxideDetected = charactUint8Create (Charact.UUID_CARBON_DIOXIDE_DETECTED, Charact.PERM_RE, kwargs.get("carbonDioxide",0))
 		self.carbonDioxideDetected.setConstraint(0, 1, 1)
-		self.server.addCharact(self.carbonDioxideDetected)
+		self.service.addCharact(self.carbonDioxideDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setCarbonDioxide(self, value):
 		""" Set the carbon dioxide """

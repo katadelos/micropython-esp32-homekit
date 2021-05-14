@@ -146,26 +146,26 @@ STATIC mp_obj_t Accessory_deinit(mp_obj_t self_in)
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(Accessory_deinit_obj, Accessory_deinit);
 
 
-// addServer method
-STATIC mp_obj_t Accessory_addServer(mp_obj_t self_in, mp_obj_t server_in)
+// addService method
+STATIC mp_obj_t Accessory_addService(mp_obj_t self_in, mp_obj_t service_in)
 {
 	Accessory_t *self = self_in;
-	// ESP_LOGE(TAG, "Accessory_addServer");
+	// ESP_LOGE(TAG, "Accessory_addService");
 	if (self->accessory)
 	{
-		hap_serv_t * server = Server_get_ptr(server_in);
-		if (server)
+		hap_serv_t * service = Service_get_ptr(service_in);
+		if (service)
 		{
-			hap_acc_add_serv(self->accessory, server);
+			hap_acc_add_serv(self->accessory, service);
 		}
 		else
 		{
-			mp_raise_TypeError(MP_ERROR_TEXT("Not Server type"));
+			mp_raise_TypeError(MP_ERROR_TEXT("Not Service type"));
 		}
 	}
 	return mp_const_none;
 }
-STATIC MP_DEFINE_CONST_FUN_OBJ_2(Accessory_addServer_obj, Accessory_addServer);
+STATIC MP_DEFINE_CONST_FUN_OBJ_2(Accessory_addService_obj, Accessory_addService);
 
 
 // set_identify callback method
@@ -226,7 +226,7 @@ STATIC const mp_rom_map_elem_t Accessory_locals_dict_table[] =
 	// Delete method
 	{ MP_ROM_QSTR(MP_QSTR___del__),              MP_ROM_PTR(&Accessory_deinit_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_deinit),               MP_ROM_PTR(&Accessory_deinit_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_addServer),            MP_ROM_PTR(&Accessory_addServer_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_addService),           MP_ROM_PTR(&Accessory_addService_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_setIdentifyCallback),  MP_ROM_PTR(&Accessory_setIdentifyCallback_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_setProductData),       MP_ROM_PTR(&Accessory_setProductData_obj) },
 };

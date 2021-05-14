@@ -8,12 +8,12 @@ class SmokeSensor(Accessory):
 		""" Create smoke accessory. Parameters : name(string), smokeDetected(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Smoke sensor"), serverUuid=Server.UUID_SMOKE_SENSOR)
+		self.service = Service(name=kwargs.get("name","Smoke sensor"), serviceUuid=Service.UUID_SMOKE_SENSOR)
 		self.smokeDetected = charactUint8Create (Charact.UUID_SMOKE_DETECTED, Charact.PERM_RE, kwargs.get("smokeDetected",0))
 		self.smokeDetected.setConstraint(0, 1, 1)
-		self.server.addCharact(self.smokeDetected)
+		self.service.addCharact(self.smokeDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setSmokeDetected(self, value):
 		""" Set the smoke detected """

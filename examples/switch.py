@@ -7,12 +7,12 @@ class Switch(Accessory):
 	def __init__(self, **kwargs):
 		""" Create switch accessory. Parameters : name(string), on(bool) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SWITCH, **kwargs)
-		self.server = Server(name=kwargs.get("name","Switch"), serverUuid=Server.UUID_SWITCH)
+		self.service = Service(name=kwargs.get("name","Switch"), serviceUuid=Service.UUID_SWITCH)
 		
 		self.on = charactBoolCreate (Charact.UUID_ON, Charact.PERM_RWE, kwargs.get("on",True))
-		self.server.addCharact(self.on)
+		self.service.addCharact(self.on)
 		self.on.setWriteCallback(self.writeOn)
-		self.addServer(self.server)
+		self.addService(self.service)
 
 	def writeOn(self, value):
 		if value:

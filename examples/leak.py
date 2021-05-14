@@ -8,12 +8,12 @@ class LeakSensor(Accessory):
 		""" Create leak accessory. Parameters : name(string), leakDetected(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Leak sensor"), serverUuid=Server.UUID_LEAK_SENSOR)
+		self.service = Service(name=kwargs.get("name","Leak sensor"), serviceUuid=Service.UUID_LEAK_SENSOR)
 		self.leakDetected = charactUint8Create (Charact.UUID_LEAK_DETECTED, Charact.PERM_RE, kwargs.get("leakDetected",0))
 		self.leakDetected.setConstraint(0, 1, 1)
-		self.server.addCharact(self.leakDetected)
+		self.service.addCharact(self.leakDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setLeakDetected(self, value):
 		""" Set the leak detected """

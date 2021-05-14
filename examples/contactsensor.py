@@ -8,12 +8,12 @@ class ContactSensor(Accessory):
 		""" Create contact accessory. Parameters : name(string), contactDetected(int) and all Accessory parameters """
 		Accessory.__init__(self, Accessory.CID_SENSOR, **kwargs)
 
-		self.server = Server(name=kwargs.get("name","Contact sensor"), serverUuid=Server.UUID_CONTACT_SENSOR)
+		self.service = Service(name=kwargs.get("name","Contact sensor"), serviceUuid=Service.UUID_CONTACT_SENSOR)
 		self.contactDetected = charactUint8Create (Charact.UUID_CONTACT_SENSOR_STATE, Charact.PERM_RE, kwargs.get("contactDetected",0))
 		self.contactDetected.setConstraint(0, 1, 1)
-		self.server.addCharact(self.contactDetected)
+		self.service.addCharact(self.contactDetected)
 
-		self.addServer(self.server)
+		self.addService(self.service)
 	
 	def setContactDetected(self, value):
 		""" Set the contact detected """

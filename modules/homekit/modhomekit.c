@@ -133,7 +133,7 @@ STATIC const mp_rom_map_elem_t homekit_module_globals_table[] =
 	{ MP_ROM_QSTR(MP_QSTR_setSetupCode       ), MP_ROM_PTR(&homekit_setSetupCode_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_addAccessory       ), MP_ROM_PTR(&homekit_addAccessory_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_Charact            ), MP_ROM_PTR(&Charact_type) },
-	{ MP_ROM_QSTR(MP_QSTR_Server             ), MP_ROM_PTR(&Server_type) },
+	{ MP_ROM_QSTR(MP_QSTR_Service             ), MP_ROM_PTR(&Service_type) },
 	{ MP_ROM_QSTR(MP_QSTR_Accessory          ), MP_ROM_PTR(&Accessory_type) },
 };
 
