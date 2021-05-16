@@ -13,6 +13,16 @@ MPY_VERSION=v1.15
 ESPIDF_VERSION=v4.2.1
 ESPHK_VERSION=389189abd7c1965d70eb3ddc7a19a8f0313f1fc8
 
+ifneq ($(LOCAL_GIT_DIR),)
+MPY_URL=file://$(LOCAL_GIT_DIR)/micropython
+ESPIDF_URL=file://$(LOCAL_GIT_DIR)/esp-idf
+ESPHK_URL=file://$(LOCAL_GIT_DIR)/esp-homekit-sdk
+else
+MPY_URL=https://github.com/micropython/micropython/
+ESPIDF_URL=http://github.com/espressif/esp-idf
+ESPHK_URL=https://github.com/espressif/esp-homekit-sdk
+endif
+
 default: all
 
 define sl_hk
@@ -28,15 +38,18 @@ endif
 
 get-micropython:
 ifeq ($(wildcard .stamp_mpy_dl),)
-	git -C $(ROOT) clone https://github.com/micropython/micropython/
+	git -C $(ROOT) clone $(MPY_URL)
 	git -C $(MPY_DIR) checkout $(MPY_VERSION)
 	touch .stamp_mpy_dl
 endif
 
 get-esp_idf:
 ifeq ($(wildcard .stamp_espidf_dl),)
-	git -C $(ROOT) clone https://github.com/espressif/esp-idf.git
+	git -C $(ROOT) clone $(ESPIDF_URL)
 	git -C $(ESPIDF_DIR) checkout $(ESPIDF_VERSION)
+ifneq ($(LOCAL_GIT_DIR),)
+	scripts/localtool espidf-submodules $(LOCAL_GIT_DIR)
+endif
 	git -C $(ESPIDF_DIR) submodule update --init \
     	components/bt/controller/lib \
     	components/bt/host/nimble/nimble \
@@ -61,8 +74,11 @@ endif
 
 get-esp_homekit_sdk:
 ifeq ($(wildcard .stamp_esphk_dl),)
-	git -C $(ROOT) clone https://github.com/espressif/esp-homekit-sdk.git
+	git -C $(ROOT) clone $(ESPHK_URL)
 	git -C $(ESPHK_DIR) checkout $(ESPHK_VERSION)
+ifneq ($(LOCAL_GIT_DIR),)
+	scripts/localtool esphk-submodules $(LOCAL_GIT_DIR)
+endif
 	git -C $(ESPHK_DIR) submodule update --init --recursive -- components/homekit/json_parser/
 	git -C $(ESPHK_DIR) submodule update --init -- components/homekit/json_generator
 	$(call sl_hk,esp_hap_apple_profiles)
