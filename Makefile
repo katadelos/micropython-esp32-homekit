@@ -51,12 +51,12 @@ ifneq ($(LOCAL_GIT_DIR),)
 	scripts/localtool espidf-submodules $(LOCAL_GIT_DIR)
 endif
 	git -C $(ESPIDF_DIR) submodule update --init \
-    	components/bt/controller/lib \
-    	components/bt/host/nimble/nimble \
-    	components/esp_wifi \
-    	components/esptool_py/esptool \
-    	components/lwip/lwip \
-    	components/mbedtls/mbedtls \
+		components/bt/controller/lib \
+		components/bt/host/nimble/nimble \
+		components/esp_wifi \
+		components/esptool_py/esptool \
+		components/lwip/lwip \
+		components/mbedtls/mbedtls \
 		components/asio \
 		components/cbor \
 		components/coap \
