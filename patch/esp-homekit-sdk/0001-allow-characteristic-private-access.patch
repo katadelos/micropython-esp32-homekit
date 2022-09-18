@@ -1,11 +1,11 @@
 diff --git a/components/homekit/esp_hap_core/include/hap.h b/components/homekit/esp_hap_core/include/hap.h
-index fdd80f5..b7b5e57 100644
+index d4060f8..97825a2 100644
 --- a/components/homekit/esp_hap_core/include/hap.h
 +++ b/components/homekit/esp_hap_core/include/hap.h
-@@ -1565,6 +1565,28 @@ void hap_http_debug_disable();
-  * @return NULL on failure.
+@@ -1594,6 +1594,28 @@ char *esp_hap_get_setup_payload(char *setup_code, char *setup_id, bool wac_suppo
+  * as per the requirements of HAP Specs R16.
   */
- char *esp_hap_get_setup_payload(char *setup_code, char *setup_id, bool wac_support, hap_cid_t cid);
+ void hap_pair_setup_re_enable(void);
 +
 +/**
 + * @brief Set characteristic private data
