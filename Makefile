@@ -19,7 +19,7 @@ ESPIDF_URL=file://$(LOCAL_GIT_DIR)/esp-idf
 ESPHK_URL=file://$(LOCAL_GIT_DIR)/esp-homekit-sdk
 else
 MPY_URL=https://github.com/micropython/micropython/
-ESPIDF_URL=http://github.com/espressif/esp-idf
+ESPIDF_URL=https://github.com/espressif/esp-idf
 ESPHK_URL=https://github.com/espressif/esp-homekit-sdk
 endif
 
