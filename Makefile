@@ -9,9 +9,9 @@ ESPIDF_DIR=$(ROOT)/esp-idf
 ESPHK_DIR=$(ROOT)/esp-homekit-sdk
 PATCH_DIR=$(PWD)/patch
 
-MPY_VERSION=v1.15
-ESPIDF_VERSION=v4.2.1
-ESPHK_VERSION=389189abd7c1965d70eb3ddc7a19a8f0313f1fc8
+MPY_VERSION=v1.19.1
+ESPIDF_VERSION=v4.4.2
+ESPHK_VERSION=fac2032426d3cd29d8b6cc2663d0e7945d1d020d
 
 ifneq ($(LOCAL_GIT_DIR),)
 MPY_URL=file://$(LOCAL_GIT_DIR)/micropython
@@ -19,7 +19,7 @@ ESPIDF_URL=file://$(LOCAL_GIT_DIR)/esp-idf
 ESPHK_URL=file://$(LOCAL_GIT_DIR)/esp-homekit-sdk
 else
 MPY_URL=https://github.com/micropython/micropython/
-ESPIDF_URL=http://github.com/espressif/esp-idf
+ESPIDF_URL=https://github.com/espressif/esp-idf
 ESPHK_URL=https://github.com/espressif/esp-homekit-sdk
 endif
 
@@ -51,12 +51,12 @@ ifneq ($(LOCAL_GIT_DIR),)
 	scripts/localtool espidf-submodules $(LOCAL_GIT_DIR)
 endif
 	git -C $(ESPIDF_DIR) submodule update --init \
-    	components/bt/controller/lib \
-    	components/bt/host/nimble/nimble \
-    	components/esp_wifi \
-    	components/esptool_py/esptool \
-    	components/lwip/lwip \
-    	components/mbedtls/mbedtls \
+		components/bt/controller/lib_esp32 \
+		components/bt/host/nimble/nimble \
+		components/esp_wifi \
+		components/esptool_py/esptool \
+		components/lwip/lwip \
+		components/mbedtls/mbedtls \
 		components/asio \
 		components/cbor \
 		components/coap \

@@ -36,7 +36,10 @@ get_espidf_repos() {
   git clone https://github.com/espressif/esp-cryptoauthlib.git
   git clone https://github.com/ThrowTheSwitch/CMock.git
   git clone https://github.com/espressif/openthread.git
+  git clone https://github.com/espressif/esp-thread-lib.git
   git clone https://github.com/espressif/esp32c3-bt-lib.git
+  git clone https://github.com/espressif/esp-phy-lib.git
+  git clone https://github.com/espressif/esp-ieee802154-lib.git
 }
 
 get_esphk_repos() {
@@ -70,7 +73,8 @@ _espidf-submodules() {
       cd components/esp-idf || exit
       pwd
       git submodule set-url components/esptool_py/esptool file://"$2"/esptool
-      git submodule set-url components/bt/controller/lib file://"$2"/esp32-bt-lib
+      git submodule set-url components/bt/controller/lib_esp32 file://"$2"/esp32-bt-lib
+      git submodule set-url components/bt/controller/lib_esp32c3_family file://"$2"/esp32c3-bt-lib
       git submodule set-url components/bootloader/subproject/components/micro-ecc/micro-ecc file://"$2"/micro-ecc
       git submodule set-url components/coap/libcoap file://"$2"/libcoap
       git submodule set-url components/nghttp/nghttp2 file://"$2"/nghttp2
@@ -88,6 +92,11 @@ _espidf-submodules() {
       git submodule set-url components/cbor/tinycbor file://"$2"/tinycbor
       git submodule set-url components/esp_wifi/lib file://"$2"/esp32-wifi-lib
       git submodule set-url components/tinyusb/tinyusb file://"$2"/tinyusb
+      git submodule set-url components/cmock/CMock file://"$2"/CMock
+      git submodule set-url components/esp_phy/lib file://"$2"/esp-phy-lib
+      git submodule set-url components/ieee802154/lib file://"$2"/esp-ieee802154-lib
+      git submodule set-url components/openthread/openthread file://"$2"/openthread
+      git submodule set-url components/openthread/lib file://"$2"/esp-thread-lib
       git submodule set-url  examples/build_system/cmake/import_lib/main/lib/tinyxml2 file://"$2"/tinyxml2
       git submodule set-url examples/peripherals/secure_element/atecc608_ecdsa/components/esp-cryptoauthlib \
                             file://"$2"/esp-cryptoauthlib

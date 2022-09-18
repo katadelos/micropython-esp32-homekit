@@ -1,5 +1,5 @@
 diff --git a/components/esp_http_server/include/esp_http_server.h b/components/esp_http_server/include/esp_http_server.h
-index c89b78c53..9287e46f9 100644
+index c89b78c530..9287e46f9a 100644
 --- a/components/esp_http_server/include/esp_http_server.h
 +++ b/components/esp_http_server/include/esp_http_server.h
 @@ -27,6 +27,10 @@
