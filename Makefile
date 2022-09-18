@@ -10,7 +10,7 @@ ESPHK_DIR=$(ROOT)/esp-homekit-sdk
 PATCH_DIR=$(PWD)/patch
 
 MPY_VERSION=v1.19.1
-ESPIDF_VERSION=v4.2.1
+ESPIDF_VERSION=v4.4.2
 ESPHK_VERSION=fac2032426d3cd29d8b6cc2663d0e7945d1d020d
 
 ifneq ($(LOCAL_GIT_DIR),)
@@ -51,7 +51,7 @@ ifneq ($(LOCAL_GIT_DIR),)
 	scripts/localtool espidf-submodules $(LOCAL_GIT_DIR)
 endif
 	git -C $(ESPIDF_DIR) submodule update --init \
-		components/bt/controller/lib \
+		components/bt/controller/lib_esp32 \
 		components/bt/host/nimble/nimble \
 		components/esp_wifi \
 		components/esptool_py/esptool \
